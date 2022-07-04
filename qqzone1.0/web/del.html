@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>删除好友</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" th:href="@{/css/find.css}">
+  <script type="text/javascript">
+    function delFriend(fid){
+      window.location.href="user.do?operate=delFriend&fid="+fid;
+    }
+  </script>
+</head>
+<body>
+<div id="div_container">
+    <a th:href="@{page.do?operate=page&page=index}">返回主页</a>
+    <p class="Title">删除好友</p>
+    <div id="div_fruit_list">
+        <table id ="tbl_fruit">
+            <tr th:unless="${#lists.isEmpty(session.friendList)}">
+                <th>头像</th>
+                <th>登录id</th>
+                <th>昵称</th>
+                <th>操作</th>
+            </tr>
+            <tr th:if="${#lists.isEmpty(session.friendList)}">
+                <td colspan="5">结果为空</td>
+            </tr>
+            <tr th:each="user :${session.friendList}" th:unless="${#lists.isEmpty(session.friendList)}" >
+                <td><img th:src="|imgs/${user.headImg}|" class="Img"></td>
+                <td th:text="${user.loginId}">20</td>
+                <td th:text="${user.nickName}">100</td>
+                <td><input type="button" value="删除" th:onclick="|delFriend(${user.id})|"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

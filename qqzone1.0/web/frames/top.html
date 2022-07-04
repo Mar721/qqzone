@@ -1,0 +1,24 @@
+<!--<!DOCTYPE html>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/top.css}">
+</head>
+<body>
+    <div id="top_title" >欢迎来到QQZone！</div>
+    <a th:href="@{user.do?operate=logOut}" style="margin-left: 10px" target="_top">退出登录</a>
+    <a th:href="@{page.do?operate=page&page=find}" style="margin-left: 20px" target="_top">添加好友</a>
+    <a th:href="@{page.do?operate=page&page=del}" style="margin-left: 30px" target="_top">删除好友</a>
+    <div id="top_link_div" >
+        <span th:text="|${session.friend.nickName}的空间!|">欢迎进入Jim的空间!</span>
+
+        <!--
+        判断进入的是否是自己的空间的依据是:
+        userbasic和friend这两个key中保存的userbasic是否一致
+        -->
+        <span><a th:if="${session.userBasic.id!=session.friend.id}" th:href="@{|user.do?operate=friend&id=${session.userBasic.id}|}" target="_top">返回自己的空间!</a></span>
+    </div>
+</body>
+</html>

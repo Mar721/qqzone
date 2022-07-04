@@ -1,0 +1,31 @@
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/add.css}">
+</head>
+<body>
+<div id="div_container">
+    <p class="Title">添加新日志</p>
+    <div id="div_fruit_list">
+        <form action="topic.do" method="post">
+            <input type="hidden" name="operate" value="addTopic">
+            <table id ="tbl_fruit">
+                <tr>
+                    <td style="width: 5%;">标题:</td>
+                    <td><input style="width: 90%" type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;">内容:</td>
+                    <td><textarea style="width: 90%;" rows="20" name="content"></textarea></td>
+                </tr>
+            </table>
+            <input id="submit" type="submit" value="添加" />
+        </form>
+
+
+    </div>
+</div>
+
+</body>
+</html>

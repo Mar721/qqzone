@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>添加好友</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/find.css}">
+        <script type="text/javascript">
+            function addFriend(fid){
+                window.location.href="user.do?operate=addFriend&fid="+fid;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="div_container">
+            <a th:href="@{page.do?operate=page&page=index}">返回主页</a>
+            <p class="Title">添加好友</p>
+            <div>
+                <form action="user.do" method="post" id="keyForm">
+                    <input type="hidden" name="operate" value="findUser">
+                    请输入查询关键字: <input type="text" name="keyWord"/>
+                    <input type="submit" value="查询"/>
+                </form>
+
+            </div>
+
+            <div id="div_fruit_list">
+                <table id ="tbl_fruit">
+                    <tr th:unless="${#lists.isEmpty(session.findList)}">
+                        <th>头像</th>
+                        <th>登录id</th>
+                        <th>昵称</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(session.findList)}">
+                        <td colspan="5">结果为空</td>
+                    </tr>
+                    <tr th:each="user :${session.findList}" th:unless="${#lists.isEmpty(session.findList)}" >
+                        <td><img th:src="|imgs/${user.headImg}|" class="Img"></td>
+                        <td th:text="${user.loginId}">20</td>
+                        <td th:text="${user.nickName}">100</td>
+                        <td th:if="${session.friendList.contains(user)}">已添加</td>
+                        <td th:unless="${session.friendList.contains(user)}"><input type="button" value="添加" th:onclick="|addFriend(${user.id})|"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </body>
+</html>

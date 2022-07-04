@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE beans [
+    <!ELEMENT beans (bean*)>
+    <!ELEMENT bean (property*)>
+    <!ELEMENT property (#PCDATA)>
+    <!ATTLIST bean id ID #REQUIRED>
+    <!ATTLIST bean class CDATA #IMPLIED>
+    <!ATTLIST property name CDATA #IMPLIED>
+    <!ATTLIST property ref IDREF #IMPLIED>
+]>
+
+<beans>
+    <bean id="UserBasicDao" class="com.qqzone.dao.impl.UserBasicDaoImpl"/>
+
+    <bean id="TopicDao" class="com.qqzone.dao.impl.TopicDaoImpl"/>
+
+    <bean id="ReplyDao" class="com.qqzone.dao.impl.ReplyDaoImpl"/>
+
+    <bean id="HostReplyDao" class="com.qqzone.dao.impl.HosReplyDaoImpl"/>
+
+    <bean id="FriendDao" class="com.qqzone.dao.impl.FriendDaoImpl"/>
+
+    <bean id="TopicService" class="com.qqzone.service.impl.TopicServiceImpl">
+        <property name="topicDao" ref="TopicDao"/>
+        <property name="replyService" ref="ReplyService"/>
+        <property name="userBasicService" ref="UserBasicService"/>
+    </bean>
+
+    <bean id="UserBasicService" class="com.qqzone.service.impl.UserBasicServiceImpl">
+        <property name="userBasicDao" ref="UserBasicDao"/>
+    </bean>
+
+    <bean id="ReplyService" class="com.qqzone.service.impl.ReplyServiceImpl">
+        <property name="replyDao" ref="ReplyDao"/>
+        <property name="hostReplyService" ref="HostReplyService"/>
+        <property name="userBasicService" ref="UserBasicService"/>
+    </bean>
+
+    <bean id="HostReplyService" class="com.qqzone.service.impl.HostReplyServiceImpl">
+        <property name="hostReplyDao" ref="HostReplyDao"/>
+    </bean>
+
+    <bean id="FriendService" class="com.qqzone.service.impl.FriendServiceImpl">
+        <property name="friendDao" ref="FriendDao"/>
+    </bean>
+
+    <bean id="user" class="com.qqzone.controllers.UserController">
+        <property name="userBasicService" ref="UserBasicService"/>
+        <property name="topicService" ref="TopicService"/>
+        <property name="friendService" ref="FriendService"/>
+    </bean>
+
+    <bean id="page" class="com.myssm.myspringmvc.PageController"/>
+
+    <bean id="topic" class="com.qqzone.controllers.TopicController">
+        <property name="topicService" ref="TopicService"/>
+    </bean>
+
+    <bean id="reply" class="com.qqzone.controllers.ReplyController">
+        <property name="replyService" ref="ReplyService"/>
+        <property name="hostReplyService" ref="HostReplyService"/>
+    </bean>
+</beans>
